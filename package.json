@@ -1,0 +1,18 @@
+{
+  "name": "sync-video-view",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "cron": "^1.8.2",
+    "dotenv": "^8.2.0",
+    "pm2": "^4.2.3"
+  },
+  "scripts": {
+    "pm2": "pm2",
+    "logs": "pm2 logs",
+    "start": "pm2 start pm2.json",
+    "stop": "pm2 stop pm2.json"
+  }
+}
