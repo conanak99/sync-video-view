@@ -84,7 +84,7 @@ async function updateViewTitle(videoId, {
         categoryId,
         tags
     } = snippet
-    const newTitle = `Video này có ${statistics.viewCount} view! Giới thiệu về sự hay ho của API!`
+    const newTitle = `Video này đang có ${statistics.viewCount} view! Giới thiệu về sự hay ho của API!`
 
     try {
         const result = await axios({

@@ -4,7 +4,8 @@ require('dotenv').config()
 
 
 async function main() {
-    // Refresh every 30 minutes
+    // Get access token and refresh every 30 minutes
+    await service.getAccessToken()
     const refreshTokenJob = new CronJob('*/30 * * * *', async () => {
         await service.getAccessToken()
     });
@@ -29,8 +30,8 @@ async function main() {
 
 main()
 
-// For debugging & testing purposes
-//
+// // For debugging & testing purposes
+
 // async function test() {
 //     await service.getAccessToken()
 
