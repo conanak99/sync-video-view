@@ -1,4 +1,5 @@
 import axios from "axios";
+import type { YouTubeLiveBroadcastListResponse } from "./types";
 
 async function getAccessToken() {
   const TOKEN_URL = "https://oauth2.googleapis.com/token";
@@ -26,4 +27,38 @@ async function getAccessToken() {
   }
 }
 
-await getAccessToken();
+async function getLiveBroadcasts(accessToken: string) {
+  try {
+    console.log("Getting live broadcasts.");
+    const response = await axios({
+      method: "GET",
+      url: "https://www.googleapis.com/youtube/v3/liveBroadcasts",
+      params: {
+        mine: true,
+        access_token: accessToken
+      }
+    });
+
+    const data = response.data as YouTubeLiveBroadcastListResponse;
+    console.log(`Found ${data.items.length} broadcasts.`);
+
+    return data.items.map((item) => ({
+      liveChatId: item.snippet.liveChatId,
+      title: item.snippet.title,
+      description: item.snippet.description,
+      status: item.status.lifeCycleStatus,
+    }));
+  } catch (err) {
+    console.error("Error fetching live broadcasts:", err);
+    return [];
+  }
+}
+
+const accessToken = await getAccessToken();
+if (!accessToken) {
+  console.error("Failed to get access token.");
+  process.exit(1);
+}
+
+const liveBroadcasts = await getLiveBroadcasts(accessToken);
+console.log(liveBroadcasts);
